@@ -1,38 +1,37 @@
-# temp_conversion_tool.py
-
 # Global conversion factors
-CELSIUS_TO_FAHRENHEIT_FACTOR = 9/5
-FAHRENHEIT_TO_CELSIUS_FACTOR = 5/9
+FAHRENHEIT_TO_CELSIUS_FACTOR = 5 / 9
+CELSIUS_TO_FAHRENHEIT_FACTOR = 9 / 5
 
 
-def celsius_to_fahrenheit(celsius):
-    """Convert Celsius to Fahrenheit."""
-    # Must explicitly use + 32
-    return celsius * CELSIUS_TO_FAHRENHEIT_FACTOR + 32
-
-
-def fahrenheit_to_celsius(fahrenheit):
+def convert_to_celsius(fahrenheit):
     """Convert Fahrenheit to Celsius."""
-    # Must explicitly use - 32
     return (fahrenheit - 32) * FAHRENHEIT_TO_CELSIUS_FACTOR
 
 
-if __name__ == "__main__":
-    print("Temperature Conversion Tool")
-    print("1. Celsius to Fahrenheit")
-    print("2. Fahrenheit to Celsius")
+def convert_to_fahrenheit(celsius):
+    """Convert Celsius to Fahrenheit."""
+    return (celsius * CELSIUS_TO_FAHRENHEIT_FACTOR) + 32
 
+
+def main():
     try:
-        choice = input("Choose conversion (1/2): ")
+        # User input
+        temp_input = input("Enter the temperature to convert: ")
+        temperature = float(temp_input)
 
-        if choice == "1":
-            c = float(input("Enter temperature in Celsius: "))
-            print(f"{c}°C = {celsius_to_fahrenheit(c)}°F")
-        elif choice == "2":
-            f = float(input("Enter temperature in Fahrenheit: "))
-            print(f"{f}°F = {fahrenheit_to_celsius(f)}°C")
+        unit = input("Is this temperature in Celsius or Fahrenheit? (C/F): ").strip().upper()
+
+        if unit == "C":
+            converted = convert_to_fahrenheit(temperature)
+            print(f"{temperature}°C is {converted}°F")
+        elif unit == "F":
+            converted = convert_to_celsius(temperature)
+            print(f"{temperature}°F is {converted}°C")
         else:
-            print("Invalid choice.")
-
+            raise ValueError("Invalid unit. Please enter 'C' or 'F'.")
     except ValueError:
-        print("Invalid input. Please enter a number.")
+        print("Invalid temperature. Please enter a numeric value.")
+
+
+if __name__ == "__main__":
+    main()
